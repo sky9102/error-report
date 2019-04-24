@@ -61,6 +61,10 @@ export default {
     }
   },
   mounted() {
+    //
+    // 取消其中任何一个注释，即可查看异常上报情况。
+    //
+
     // 1、脚本抛出异常
     this.test1Method();
 
