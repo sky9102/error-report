@@ -43,12 +43,12 @@ reportUrl|异常上报地址|String|window.location.href|N|
 delayTime|延时上报Error时间|Number|3000 (单位：毫秒)|Y
 appId|项目ID|String||Y
 appName|项目名称|String||Y
-browser|浏览器名称|String|内部可以获取|N|
-device|设备名称|String|内部可以获取|N|
+browser|浏览器名称|String|内部方法可以获取|N|
+device|设备名称|String|内部方法可以获取|N|
 userId|userId|String||Y|
 token|token|String||Y|
 userId|userId|String||Y|
-timeSpan|发送数据时的时间戳|String|每次取当前的时间戳|Y|
+timeSpan|发送数据时的时间戳|Number|每次取当前的时间戳|Y|
 level|日志错误级别，如warning, error, info, debug|String|level|Y|
 msg|错误的具体信息|String|错误的具体信息|Y|
 userAgent|userAgent|String|userAgent|Y|
