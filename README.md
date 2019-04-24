@@ -27,13 +27,13 @@ import ErrorReport from "./plugins/errorReport";
 
 Vue.use(ErrorReport, {
     reportUrl: "http://localhost:10300/errorReport",
-    appId: "static_errorReport_5c6pz3e4il59k2f3b6",
-    appName: "static_errorReport"
+    appId: "error-report-5c6pz3e4il59k2f3b6",
+    appName: "error-report"
 });
 ```
 
 ### Demo
-[examples](https://github.com/sky9102/static_errorReport/blob/master/src/views/errorTest.vue)
+[examples](https://github.com/sky9102/error-report/blob/master/src/views/errorTest.vue)
 
 ## 配置参数 options
 
@@ -58,7 +58,7 @@ data|更多错误信息|Object|更多错误信息|Y|
 
 ## 注意事项
 > 考虑到有些项目使用原生Ajax，Ajax 异常做了原生的拦截，Axios 异常也做了拦截；使用了Axios的童鞋，会出现异常上报两次（原因：Axios 异常拦截器一次，原生Ajax异常 拦截一次），不想上报两次可以选择注释以下代码（***Axios 异常监控***、***Ajax 监控*** 其中任何一个即可）。
-在[static_errorReport/src/plugins/errorReport.js](https://github.com/sky9102/static_errorReport/blob/master/src/plugins/errorReport.js)中。
+在[error-report/src/plugins/errorReport.js](https://github.com/sky9102/error-report/blob/master/src/plugins/errorReport.js)中。
 
  注释 ***Axios 异常监控***，Axios异常 将不会被上报；
 ```
@@ -135,7 +135,7 @@ data|更多错误信息|Object|更多错误信息|Y|
 
 
 ## 问题
-* 开发者有问题或者好的建议可以用[Issues](https://github.com/sky9102/static_errorReport/issues)反馈交流，请给出详细信息。
+* 开发者有问题或者好的建议可以用[Issues](https://github.com/sky9102/error-report/issues)反馈交流，请给出详细信息。
 * 如果有问题需要提问，请在提问前先完成以下过程：
     * 请仔细阅读本项目文档，查看能否解决；
     * 请提问前尽可能做一些DEBUG或者思考分析，然后提问时给出详细的错误相关信息以及个人对问题的理解。
