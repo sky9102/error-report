@@ -26,7 +26,7 @@ npm run dev
 import ErrorReport from "./plugins/errorReport";
 
 Vue.use(ErrorReport, {
-    reportUrl: "http://localhost:10300/errorReportInfo",
+    reportUrl: "http://localhost:10300/errorReport",
     appId: "static_errorReport_5c6pz3e4il59k2f3b6",
     appName: "static_errorReport"
 });
@@ -39,7 +39,7 @@ Vue.use(ErrorReport, {
 
 属性|说明|类型|默认值|是否可以为空
 --|:--:|--:|--:|--:
-reportUrl|异常上报地址|String|window.location.href|N|
+reportUrl|异常上报地址|String|http://localhost:10300/errorReport|N|
 delayTime|延时上报Error时间|Number|3000 (单位：毫秒)|Y
 appId|项目ID|String||Y
 appName|项目名称|String||Y
@@ -47,13 +47,11 @@ browser|浏览器名称|String|内部方法可以获取|N|
 device|设备名称|String|内部方法可以获取|N|
 userId|userId|String||Y|
 token|token|String||Y|
-userId|userId|String||Y|
 timeSpan|发送数据时的时间戳|Number|每次取当前的时间戳|Y|
 level|日志错误级别，如warning, error, info, debug|String|level|Y|
 msg|错误的具体信息|String|错误的具体信息|Y|
 userAgent|userAgent|String|userAgent|Y|
-pageUrl|上报页面地址|String|userAgent|Y|
-userAgent|userAgent|String|window.location.href|Y|
+pageUrl|上报页面地址|String|window.location.href|Y|
 stack|错误堆栈信息|String|错误堆栈信息|Y|
 data|更多错误信息|Object|更多错误信息|Y|
 

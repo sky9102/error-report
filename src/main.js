@@ -10,7 +10,7 @@ import router from "./router";
 Vue.config.productionTip = false;
 
 Vue.use(ErrorReport, {
-    reportUrl: "http://localhost:10300/errorReportInfo",
+    reportUrl: "http://localhost:10300/errorReport",
     appId: "static_errorReport_5c6pz3e4il59k2f3b6",
     appName: "static_errorReport"
 });

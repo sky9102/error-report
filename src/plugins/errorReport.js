@@ -81,7 +81,7 @@ function getDevices() {
 class ErrerReport {
     constructor(ops = {}) {
         // 上报Error地址
-        this.reportUrl = ops.reportUrl || window.location.href;
+        this.reportUrl = ops.reportUrl || `${window.location.origin}/errorReport`;
         // 延时上报Error时间
         this.delayTime = ops.delayTime || 3000;
         // localStorage 存放的时间戳
