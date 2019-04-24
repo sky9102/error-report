@@ -10,9 +10,9 @@ import router from "./router";
 Vue.config.productionTip = false;
 
 Vue.use(ErrorReport, {
-    reportUrl: "http://0.0.0.0:13000/errorReportInfo",
-    appId: "dFire_static_shop_5c6pz3e4il59k2f3b6",
-    appName: "static_shop"
+    reportUrl: "http://0.0.0.0:10300/errorReportInfo",
+    appId: "static_errorReport_5c6pz3e4il59k2f3b6",
+    appName: "static_errorReport"
 });
 
 /* eslint-disable no-new */

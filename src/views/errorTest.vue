@@ -1,6 +1,6 @@
 <template>
   <div class="error-test-wrapper">
-    <h1>Error Test Page</h1>
+    <h1>异常上报测试页面</h1>
   </div>
 </template>
 
@@ -62,7 +62,7 @@ export default {
   },
   mounted() {
     // 1、脚本抛出异常
-    // this.test1Method();
+    this.test1Method();
 
     // 2、axios 异常
     // this.test2Method({
@@ -96,8 +96,12 @@ export default {
 
 <style lang="scss" scoped>
 .error-test-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
   h1 {
-    text-align: center;
     font-size: 28px;
     line-height: 38px;
   }

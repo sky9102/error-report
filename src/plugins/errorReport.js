@@ -81,9 +81,9 @@ function getDevices() {
 class ErrerReport {
     constructor(ops = {}) {
         // 上报Error地址
-        this.reportUrl = ops.reportUrl || "";
+        this.reportUrl = ops.reportUrl || window.location.href;
         // 延时上报Error时间
-        this.delayTime = ops.delayTime || 1000;
+        this.delayTime = ops.delayTime || 3000;
         // localStorage 存放的时间戳
         this.localStorageTime = Date.now();
         // 断网标记, 默认不断网
@@ -93,8 +93,8 @@ class ErrerReport {
             appName: "", // 项目名称
             browser: getBrowser(),
             device: getDevices(),
-            userId: "",
-            token: "",
+            userId: "", // userId
+            token: "", // token
             timeSpan: "", // 发送数据时的时间戳
             level: "error", // js 日志错误级别，如warning, error, info, debug
             msg: "", // 错误的具体信息,
@@ -221,7 +221,7 @@ class ErrerReport {
             return true;
         };
 
-        // 监控 promise 异常
+        // 监控 Promise 异常
         window.addEventListener(
             "unhandledrejection",
             event => {
@@ -309,10 +309,10 @@ class ErrerReport {
         );
     }
 
-    stop() {
-        this.sendReport = function() {};
-    }
-
+    /**
+     * 保存异常信息
+     * @param {*} data 异常信息
+     */
     saveReport(data) {
         const reqData = Object.assign({}, data, {
             timeSpan: Date.now(),

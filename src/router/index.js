@@ -8,6 +8,7 @@ export default new VueRouter({
         {
             path: "/",
             name: "Index",
+            redirect: '/errorTest',
             component: () =>
                 import(/* webpackChunkName:'index' */ "@views/index")
         },
