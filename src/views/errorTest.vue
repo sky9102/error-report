@@ -46,7 +46,7 @@ export default {
       xhr.ontimeout = event => {
         alert("XMLHttpRequest  请求超时！");
       };
-      xhr.open("POST", "http://0.0.0.0:10300/login");
+      xhr.open("POST", "http://localhost:10300/login");
       xhr.send("a=1&b=2");
       xhr.onreadystatechange = () => {
         if (xhr.readyState == 4 && xhr.status == 200) {

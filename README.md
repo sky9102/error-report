@@ -19,14 +19,14 @@ npm install -g cnpm --registry=https://registry.npm.taobao.org
 cnpm install
 npm run dev
 ```
-此时，浏览器打开，输入网址http://0.0.0.0:10300, 进入 **异常上报测试页面**。
+此时，浏览器打开，输入网址http://localhost:10300, 进入 **异常上报测试页面**。
 
 ### 使用
 ```
 import ErrorReport from "./plugins/errorReport";
 
 Vue.use(ErrorReport, {
-    reportUrl: "http://0.0.0.0:10300/errorReportInfo",
+    reportUrl: "http://localhost:10300/errorReportInfo",
     appId: "static_errorReport_5c6pz3e4il59k2f3b6",
     appName: "static_errorReport"
 });
@@ -60,7 +60,7 @@ data|更多错误信息|Object|更多错误信息|Y|
 
 ## 注意事项
 > 考虑到有项目使用原生Ajax，目前Ajax 异常做了原生的拦截；使用了Axios的童鞋，会出现异常上报两次（原因：axios 异常拦截器一次，原生拦截一次）情况，不想上报两次可以选择注释以下代码。
-在src/plugins/errorReport.js中。
+在[static_errorReport/src/plugins/errorReport.js](https://github.com/sky9102/static_errorReport/blob/master/src/plugins/errorReport.js)中。
 
  注释 ***Axios 异常监控***，Axios 异常将不会被上报；
 ```
