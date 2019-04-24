@@ -114,7 +114,6 @@ class ErrerReport {
     }
 
     init() {
-        const self = this;
         // Ajax监控
         const ajaxListener = {};
         // 复制send方法
@@ -124,8 +123,9 @@ class ErrerReport {
         // 重写open方法,记录请求的url
         XMLHttpRequest.prototype.open = function(method, url, boolen) {
             ajaxListener.tempOpen.apply(this, [method, url, boolen]);
-            self.ajaxUrl = url;
+            this.ajaxUrl = url;
         };
+        const self = this;
         // 发送
         XMLHttpRequest.prototype.send = function(data) {
             const tempReadystate = this.onreadystatechange;
@@ -139,7 +139,7 @@ class ErrerReport {
                     self.options.msg = "AJAX 请求错误";
                     self.options.stack = `错误码：${this.status}`;
                     self.options.data = JSON.stringify({
-                        requestUrl: self.ajaxUrl,
+                        requestUrl: this.ajaxUrl,
                         category: "XMLHttpRequest",
                         text: this.statusText,
                         status: this.status
