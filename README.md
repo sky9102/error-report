@@ -107,7 +107,7 @@ data|更多错误信息|Object|更多错误信息|Y|
                     self.options.stack = `错误码：${this.status}`;
                     self.options.data = JSON.stringify({
                         requestUrl: self.ajaxUrl,
-                        category: "XMLHttpRequest AJAX",
+                        category: "XMLHttpRequest",
                         text: this.statusText,
                         status: this.status
                     });

@@ -140,7 +140,7 @@ class ErrerReport {
                     self.options.stack = `错误码：${this.status}`;
                     self.options.data = JSON.stringify({
                         requestUrl: self.ajaxUrl,
-                        category: "XMLHttpRequest AJAX",
+                        category: "XMLHttpRequest",
                         text: this.statusText,
                         status: this.status
                     });
