@@ -21,7 +21,7 @@ npm run dev
 ```
 此时，浏览器打开，输入网址http://0.0.0.0:10300, 进入 异常上报测试页面。
 
-### Demo
+### 使用
 ```
 import ErrorReport from "./plugins/errorReport";
 
@@ -31,6 +31,8 @@ Vue.use(ErrorReport, {
     appName: "static_errorReport"
 });
 ```
+
+### Demo
 [examples](https://github.com/sky9102/static_errorReport/blob/master/src/views/errorTest.vue)
 
 ## 配置参数 options
