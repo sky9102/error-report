@@ -59,7 +59,7 @@ data|更多错误信息|Object|更多错误信息|Y|
 
 
 ## 注意事项
-> 考虑到有项目使用原生Ajax，目前Ajax 异常做了原生的拦截；使用了Axios的童鞋，会出现异常上报两次（原因：axios 异常拦截器一次，原生拦截一次）情况，不想上报两次可以选择注释以下代码。
+> 考虑到有项目使用原生Ajax，目前Ajax 异常做了原生的拦截；使用了Axios的童鞋，会出现异常上报两次（原因：axios 异常拦截器一次，原生拦截一次），不想上报两次可以选择注释以下代码（***Axios 异常监控***、***Ajax 监控***）。
 在[static_errorReport/src/plugins/errorReport.js](https://github.com/sky9102/static_errorReport/blob/master/src/plugins/errorReport.js)中。
 
  注释 ***Axios 异常监控***，Axios 异常将不会被上报；
@@ -80,7 +80,7 @@ data|更多错误信息|Object|更多错误信息|Y|
         });
 ```
 
-或者注释掉原生的 ***Ajax 监控*** ，原生Ajax 不会被上报。
+或者注释掉原生的 ***Ajax 监控*** ，原生Ajax异常 不会被上报。
 ```
         // Ajax监控
         const ajaxListener = {};
