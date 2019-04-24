@@ -19,7 +19,7 @@ npm install -g cnpm --registry=https://registry.npm.taobao.org
 cnpm install
 npm run dev
 ```
-此时，浏览器打开，输入网址http://0.0.0.0:10300, 进入 异常上报测试页面。
+此时，浏览器打开，输入网址http://0.0.0.0:10300, 进入 **异常上报测试页面**。
 
 ### 使用
 ```
@@ -138,7 +138,7 @@ data|更多错误信息|Object|更多错误信息|Y|
 
 ## 问题
 * 开发者有问题或者好的建议可以用[Issues](https://github.com/sky9102/static_errorReport/issues)反馈交流，请给出详细信息。
-* 如果需要里提问，请在提问前先完成以下过程：
+* 如果有问题需要提问，请在提问前先完成以下过程：
     * 请仔细阅读本项目文档，查看能否解决；
     * 请提问前尽可能做一些DEBUG或者思考分析，然后提问时给出详细的错误相关信息以及个人对问题的理解。
 
