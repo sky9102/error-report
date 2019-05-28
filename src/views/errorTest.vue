@@ -75,7 +75,7 @@ export default {
     // });
 
     // 3、Promise 异常
-    this.test3Method();
+    // this.test3Method();
 
     // 4、Ajax 异常
     // this.test4Method();
