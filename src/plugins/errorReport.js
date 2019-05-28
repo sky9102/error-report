@@ -84,8 +84,6 @@ class ErrerReport {
         this.reportUrl = ops.reportUrl || `${window.location.origin}/errorReport`;
         // 延时上报Error时间
         this.delayTime = ops.delayTime || 3000;
-        // localStorage 存放的时间戳
-        this.localStorageTime = Date.now();
         // 断网标记, 默认不断网
         this.offLineFlg = false;
         this.options = {
@@ -101,6 +99,7 @@ class ErrerReport {
             userAgent: navigator.userAgent, // userAgent
             pageUrl: window.location.href, // 上报页面地址
             stack: "", // 错误堆栈信息
+            localStorageKey: "error_report_data", // localStorageKey
             data: {} // 更多错误信息
         };
 
@@ -110,6 +109,7 @@ class ErrerReport {
         Object.assign(this.options, ops);
 
         this.init();
+        this.localStorageRestoreToList();
         this.asyncSendReport();
     }
 
@@ -121,15 +121,15 @@ class ErrerReport {
         // 复制open方法
         ajaxListener.tempOpen = XMLHttpRequest.prototype.open;
         // 重写open方法,记录请求的url
-        XMLHttpRequest.prototype.open = function(method, url, boolen) {
+        XMLHttpRequest.prototype.open = function (method, url, boolen) {
             ajaxListener.tempOpen.apply(this, [method, url, boolen]);
             this.ajaxUrl = url;
         };
         const self = this;
         // 发送
-        XMLHttpRequest.prototype.send = function(data) {
+        XMLHttpRequest.prototype.send = function (data) {
             const tempReadystate = this.onreadystatechange;
-            this.onreadystatechange = function() {
+            this.onreadystatechange = function () {
                 if (this.readyState === 4) {
                     if (this.status >= 200 && this.status < 300) {
                         tempReadystate && tempReadystate.apply(this, [data]);
@@ -243,14 +243,14 @@ class ErrerReport {
         // Vue 异常监控
         Vue.config.errorHandler = (error, vm, info) => {
             const componentName = this.formatComponentName(vm);
-            // const propsData = vm.$options && vm.$options.propsData;
+            const propsData = vm.$options && vm.$options.propsData;
 
             this.options.msg = error.message;
             this.options.stack = this.processStackMsg(error);
             this.options.data = JSON.stringify({
                 category: "Vue",
                 componentName,
-                // propsData,
+                propsData,
                 info
             });
 
@@ -297,15 +297,15 @@ class ErrerReport {
         if (vm.$root === vm) {
             return "root";
         }
-        const name = vm._isVue
-            ? (vm.$options && vm.$options.name) ||
-              (vm.$options && vm.$options._componentTag)
-            : vm.name;
+        const name = vm._isVue ?
+            (vm.$options && vm.$options.name) ||
+            (vm.$options && vm.$options._componentTag) :
+            vm.name;
         return (
             (name ? "component <" + name + ">" : "anonymous component") +
-            (vm._isVue && vm.$options && vm.$options.__file
-                ? " at " + (vm.$options && vm.$options.__file)
-                : "")
+            (vm._isVue && vm.$options && vm.$options.__file ?
+                " at " + (vm.$options && vm.$options.__file) :
+                "")
         );
     }
 
@@ -323,10 +323,8 @@ class ErrerReport {
 
         // 断网
         if (navigator.onLine === false) {
-            localStorage.setItem(
-                `errorReport_${this.localStorageTime}`,
-                JSON.stringify(this.reqDataList)
-            );
+            this.listSaveToLocalStorage();
+            this.reqDataList = [];
         }
     }
 
@@ -338,7 +336,8 @@ class ErrerReport {
         if (navigator.onLine) {
             // 之前离线
             if (this.offLineFlg) {
-                this.getLocalStorageErrorData();
+                this.localStorageRestoreToList();
+                this.offLineFlg = false;
             }
 
             if (this.reqDataList.length > 0) {
@@ -350,14 +349,47 @@ class ErrerReport {
                         img.src = `${this.reportUrl}?${formatParams(reqData)}`;
                     });
                 }
-            } else {
-                this.executeDelayFunction();
             }
         } else {
             // 断网
             this.offLineFlg = true;
-            this.executeDelayFunction();
         }
+        this.executeDelayFunction();
+    }
+
+    /**
+     * list 保存到 localStorage
+     */
+    listSaveToLocalStorage() {
+        const key = this.options.localStorageKey;
+        const errorReportDataList = this.getLocalStorageErrorData(key);
+        if (errorReportDataList.length > 0) {
+            this.reqDataList.push(...errorReportDataList);
+        }
+        localStorage.setItem(key, JSON.stringify(this.reqDataList));
+    }
+
+    /**
+     * localStorage 恢复到 List
+     */
+    localStorageRestoreToList() {
+        const key = this.options.localStorageKey;
+        const errorReportDataList = this.getLocalStorageErrorData(key);
+        if (errorReportDataList.length > 0) {
+            this.reqDataList.push(...errorReportDataList);
+        }
+        localStorage.removeItem(key);
+    }
+
+    /**
+     * 获取LocalStorage 存入的错误信息
+     */
+    getLocalStorageErrorData(key) {
+        const errorReportStr = localStorage.getItem(key);
+        if (errorReportStr === null || errorReportStr === "") {
+            return [];
+        }
+        return JSON.parse(errorReportStr);
     }
 
     /**
@@ -367,21 +399,6 @@ class ErrerReport {
         setTimeout(() => {
             this.asyncSendReport();
         }, this.delayTime);
-    }
-
-    /**
-     * 获取LocalStorage 存入的错误信息
-     */
-    getLocalStorageErrorData() {
-        const key = `errorReport_${this.localStorageTime}`;
-        const errorReportStr = localStorage.getItem(key);
-        if (errorReportStr === null || errorReportStr === "") {
-            return;
-        }
-        this.reqDataList = JSON.parse(errorReportStr);
-        localStorage.removeItem(key);
-        this.offLineFlg = false;
-        this.localStorageTime = Date.now();
     }
 }
 

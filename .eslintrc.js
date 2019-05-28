@@ -38,6 +38,7 @@ module.exports = {
         "no-throw-literal": 0,
         "prefer-promise-reject-errors": 0,
         "no-trailing-spaces": 0,
-        "no-new": 0
+        "no-new": 0,
+        "operator-linebreak": 0,
     }
 };

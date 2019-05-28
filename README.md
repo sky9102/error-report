@@ -53,6 +53,7 @@ msg|错误的具体信息|String|错误的具体信息|Y|
 userAgent|userAgent|String|userAgent|Y|
 pageUrl|上报页面地址|String|window.location.href|Y|
 stack|错误堆栈信息|String|错误堆栈信息|Y|
+localStorageKey|建议使用固定的key,下次用户打开浏览器可以直接恢复异常数据并上传|String|localStorageKey|N|
 data|更多错误信息|Object|更多错误信息|Y|
 
 

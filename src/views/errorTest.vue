@@ -66,18 +66,16 @@ export default {
     //
 
     // 1、脚本抛出异常
-    // this.test1Method();
+    this.test1Method();
 
     // 2、axios 异常
-    this.test2Method({
-      ID: 222222,
-      net4: Date.now()
-    });
+    // this.test2Method({
+    //   ID: 222222,
+    //   net4: Date.now()
+    // });
 
     // 3、Promise 异常
-    // setTimeout(() => {
-    //   this.test3Method();
-    // }, 8000);
+    this.test3Method();
 
     // 4、Ajax 异常
     // this.test4Method();
