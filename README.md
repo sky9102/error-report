@@ -143,4 +143,4 @@ data|更多错误信息|Object|更多错误信息|Y|
     * 请提问前尽可能做一些DEBUG或者思考分析，然后提问时给出详细的错误相关信息以及个人对问题的理解。
 
 ## License
-[MIT](https://github.com/linlinjava/litemall/blob/master/LICENSE) Copyright (c) 2019 [sky9102](https://github.com/sky9102)
+[MIT](https://github.com/sky9102/error-report/blob/master/LICENSE) Copyright (c) 2019 [sky9102](https://github.com/sky9102)
