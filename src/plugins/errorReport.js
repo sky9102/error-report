@@ -81,7 +81,8 @@ function getDevices() {
 class ErrerReport {
     constructor(ops = {}) {
         // 上报Error地址
-        this.reportUrl = ops.reportUrl || `${window.location.origin}/errorReport`;
+        this.reportUrl =
+            ops.reportUrl || `${window.location.origin}/errorReport`;
         // 延时上报Error时间
         this.delayTime = ops.delayTime || 3000;
         // 断网标记, 默认不断网
@@ -100,6 +101,7 @@ class ErrerReport {
             pageUrl: window.location.href, // 上报页面地址
             stack: "", // 错误堆栈信息
             localStorageKey: "error_report_data", // localStorageKey
+            category: "", // 类别
             data: {} // 更多错误信息
         };
 
@@ -138,9 +140,9 @@ class ErrerReport {
 
                     self.options.msg = "AJAX 请求错误";
                     self.options.stack = `错误码：${this.status}`;
+                    self.options.category = "XMLHttpRequest";
                     self.options.data = JSON.stringify({
                         requestUrl: this.ajaxUrl,
-                        category: "XMLHttpRequest",
                         text: this.statusText,
                         status: this.status
                     });
@@ -165,12 +167,12 @@ class ErrerReport {
                 const target = e.target ? e.target : e.srcElement;
                 this.options.msg = e.target.localName + " is load error";
                 this.options.stack = "resouce is not found";
+                this.options.category = "Resource";
                 this.options.data = JSON.stringify({
                     tagName: e.target.localName,
                     html: target.outerHTML,
                     type: e.type,
-                    fileName: e.target.currentSrc,
-                    category: "Resource"
+                    fileName: e.target.currentSrc
                 });
                 if (e.target !== window) {
                     // 抛去js语法错误
@@ -204,10 +206,10 @@ class ErrerReport {
                     this.options.msg = msg;
                     this.options.stack = "";
                 }
+                this.options.category = "JavaScript";
                 this.options.data = JSON.stringify({
                     pageUrl: this.ajaxUrl,
                     fileName: url,
-                    category: "JavaScript",
                     line: line,
                     col: newCol
                 });
@@ -228,9 +230,9 @@ class ErrerReport {
                 // 错误信息
                 this.options.msg = event.reason || "";
                 this.options.data = JSON.stringify({
-                    pageUrl: window.location.href,
-                    category: "Promise"
+                    pageUrl: window.location.href
                 });
+                this.options.category = "Promise";
                 this.options.stack = "Promise is Error";
                 const reportData = Object.assign({}, this.options);
                 this.saveReport(reportData);
@@ -247,8 +249,8 @@ class ErrerReport {
 
             this.options.msg = error.message;
             this.options.stack = this.processStackMsg(error);
+            this.options.category = "Vue";
             this.options.data = JSON.stringify({
-                category: "Vue",
                 componentName,
                 propsData,
                 info
@@ -263,9 +265,8 @@ class ErrerReport {
         axios.interceptors.response.use(null, error => {
             this.options.msg = error.message;
             this.options.stack = this.processStackMsg(error);
-            this.options.data = JSON.stringify({
-                category: "Axios"
-            });
+            this.options.category = "Axios";
+            this.options.data = JSON.stringify({});
 
             // 合并上报的数据，包括默认上报的数据和自定义上报的数据
             const reportData = Object.assign({}, this.options);
