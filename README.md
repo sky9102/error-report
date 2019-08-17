@@ -12,21 +12,13 @@
 * 代码侵入量小
 * 使用灵活方便
 
-## 快速启动
-
-``` bash
-npm install -g cnpm --registry=https://registry.npm.taobao.org
-cnpm install
-npm run dev
-```
-此时，浏览器打开，输入网址http://localhost:10300, 进入 **异常上报测试页面**。
-
 ### 使用
 ```
-import ErrorReport from "./plugins/errorReport";
+import ErrorReport from "error-reports";
 
 Vue.use(ErrorReport, {
     reportUrl: "http://localhost:10300/errorReport",
+    env: "dev",
     appId: "error-report-5c6pz3e4il59k2f3b6",
     appName: "error-report"
 });
@@ -48,12 +40,13 @@ device|设备名称|String|内部方法可以获取|N|
 userId|userId|String||Y|
 token|token|String||Y|
 timeSpan|发送数据时的时间戳|Number|每次取当前的时间戳|Y|
-level|日志错误级别，如warning, error, info, debug|String|level|Y|
+infoType|信息类别，默认为error|String|type|Y|
 msg|错误的具体信息|String|错误的具体信息|Y|
 userAgent|userAgent|String|userAgent|Y|
 pageUrl|上报页面地址|String|window.location.href|Y|
 stack|错误堆栈信息|String|错误堆栈信息|Y|
 localStorageKey|建议使用固定的key,下次用户打开浏览器可以直接恢复异常数据并上传|String|localStorageKey|N|
+dev|环境：dev、test、uat、pro|String|开发环境|Y|
 data|更多错误信息|Object|更多错误信息|Y|
 
 
@@ -133,7 +126,7 @@ data|更多错误信息|Object|更多错误信息|Y|
 ## 警告
 * 本项目仅用于学习练习
 * 本项目还不完善，仍处在开发中，不承担任何使用后果
-* 本项目代码开源[MIT](https://github.com/linlinjava/litemall/blob/master/LICENSE)，项目文档采用 [署名-禁止演绎 4.0 国际协议许可](https://creativecommons.org/licenses/by-nd/4.0/deed.zh)
+* 本项目代码开源[MIT](https://github.com/sky9102/error-report/blob/master/LICENSE)，项目文档采用 [署名-禁止演绎 4.0 国际协议许可](https://creativecommons.org/licenses/by-nd/4.0/deed.zh)
 
 
 ## 问题

@@ -11,6 +11,7 @@ Vue.config.productionTip = false;
 
 Vue.use(ErrorReport, {
     reportUrl: "http://localhost:10300/errorReport",
+    env: "dev",
     appId: "error-report-5c6pz3e4il59k2f3b6",
     appName: "error-report"
 });
@@ -18,7 +19,9 @@ Vue.use(ErrorReport, {
 /* eslint-disable no-new */
 new Vue({
     el: "#app",
-    components: { App },
+    components: {
+        App
+    },
     template: "<App/>",
     router
 });

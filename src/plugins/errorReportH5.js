@@ -1,5 +1,3 @@
-import Vue from "vue";
-import axios from "axios";
 /*
  * 格式化参数
  */
@@ -242,73 +240,6 @@ class ErrorReport {
             },
             true
         );
-
-        // Vue 异常监控
-        Vue.config.errorHandler = (error, vm, info) => {
-            const componentName = this.formatComponentName(vm);
-            const propsData = vm.$options && vm.$options.propsData;
-
-            this.options.msg = error.message;
-            this.options.stack = this.processStackMsg(error);
-            this.options.category = "Vue";
-            this.options.data = JSON.stringify({
-                componentName,
-                propsData,
-                info
-            });
-
-            // 合并上报的数据，包括默认上报的数据和自定义上报的数据
-            const reportData = Object.assign({}, this.options);
-            this.saveReport(reportData);
-        };
-
-        // Axios 异常监控
-        axios.interceptors.response.use(null, error => {
-            this.options.msg = error.message;
-            this.options.stack = this.processStackMsg(error);
-            this.options.category = "Axios";
-            this.options.data = JSON.stringify({});
-
-            // 合并上报的数据，包括默认上报的数据和自定义上报的数据
-            const reportData = Object.assign({}, this.options);
-            this.saveReport(reportData);
-
-            return Promise.reject(error);
-        });
-    }
-
-    /* eslint-disable class-methods-use-this */
-    processStackMsg(error) {
-        let stack = error.stack
-            .replace(/\n/gi, "") // 去掉换行，节省传输内容大小
-            .replace(/\bat\b/gi, "@") // chrome中是at，ff中是@
-            .split("@") // 以@分割信息
-            .slice(0, 9) // 最大堆栈长度（Error.stackTraceLimit = 10），所以只取前10条
-            .map(v => v.replace(/^\s*|\s*$/g, "")) // 去除多余空格
-            .join("~") // 手动添加分隔符，便于后期展示
-            .replace(/\?[^:]+/gi, ""); // 去除js文件链接的多余参数(?x=1之类)
-        const msg = error.toString();
-        if (stack.indexOf(msg) < 0) {
-            stack = msg + "@" + stack;
-        }
-        return stack;
-    }
-
-    /* eslint-disable class-methods-use-this */
-    formatComponentName(vm) {
-        if (vm.$root === vm) {
-            return "root";
-        }
-        const name = vm._isVue
-            ? (vm.$options && vm.$options.name) ||
-              (vm.$options && vm.$options._componentTag)
-            : vm.name;
-        return (
-            (name ? "component <" + name + ">" : "anonymous component") +
-            (vm._isVue && vm.$options && vm.$options.__file
-                ? " at " + (vm.$options && vm.$options.__file)
-                : "")
-        );
     }
 
     /**
@@ -403,10 +334,3 @@ class ErrorReport {
         }, this.delayTime);
     }
 }
-
-export default {
-    install(Vue, options) {
-        /* eslint-disable no-new */
-        new ErrorReport(options);
-    }
-};
