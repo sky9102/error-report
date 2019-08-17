@@ -14,7 +14,7 @@
 
 ### 使用
 ```
-import ErrorReport from "error-reports";
+import ErrorReport from "./plugins/errorReport";
 
 Vue.use(ErrorReport, {
     reportUrl: "http://localhost:10300/errorReport",
