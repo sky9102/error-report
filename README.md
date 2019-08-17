@@ -46,7 +46,7 @@ userAgent|userAgent|String|userAgent|Y|
 pageUrl|上报页面地址|String|window.location.href|Y|
 stack|错误堆栈信息|String|错误堆栈信息|Y|
 localStorageKey|建议使用固定的key,下次用户打开浏览器可以直接恢复异常数据并上传|String|localStorageKey|N|
-dev|环境：dev、test、uat、pro|String|开发环境|Y|
+env|环境：dev、test、uat、pro|String|开发环境|Y|
 data|更多错误信息|Object|更多错误信息|Y|
 
 
