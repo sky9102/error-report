@@ -2,7 +2,7 @@
   "name": "error-report",
   "version": "1.0.0",
   "description": "A Vue.js project",
-  "author": "baishuaiyu <baishuaiyu@olayc.cn>",
+  "author": "sky9102",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
